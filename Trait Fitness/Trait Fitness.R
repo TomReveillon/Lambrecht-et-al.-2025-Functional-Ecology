@@ -8,6 +8,7 @@ library(data.table)
 library(DescTools)
 library(deSolve)
 library(dplyr)
+library(emmeans)
 library(foreach)
 library(ggplot2)
 library(ggpubr)
@@ -396,6 +397,9 @@ ModA1=glm(ExpFitA~(CC:CR + CC:CD + HS:CR + HS:CD + CC:HS:CR:CD):Nutri:Pred, fami
 lrtest(ModA0,ModA1)
 summary(aov(ModA1))
 
+# Posthoc pairwise regression
+emmeans(ModA1, pairwise~Nutri*Pred)
+
 # Include the predicted fitness
 Data2$PredFitA=c(predict(ModA1))
 
@@ -460,6 +464,10 @@ ModA0N=glm(ExpFitA~(CC + HS + CR + CD):Nutri:Pred, family=gaussian(link="identit
 ModA1N=glm(ExpFitA~(CC:CR + CC:CD + HS:CR + HS:CD + CC:HS:CR:CD):Nutri:Pred, family=gaussian(link="identity"), data=Data4)
 lrtest(ModA0N,ModA1N)
 summary(aov(ModA1N))
+
+# Posthoc pairwise regression
+emmeans(ModA1B, pairwise~Nutri*Pred)
+emmeans(ModA1N, pairwise~Nutri*Pred)
 
 # Include the predicted fitness
 Data3$PredFitA=c(predict(ModA1B))
