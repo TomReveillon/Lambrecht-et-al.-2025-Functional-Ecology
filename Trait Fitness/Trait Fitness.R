@@ -47,7 +47,7 @@ names(DataF)
 
 # Specify the variables as numeric or factor
 DataT[,c(3:29)] %<>% mutate_if(is.character,as.numeric)
-DataF[,c(8:9)] %<>% mutate_if(is.character,as.numeric)
+DataF[,c(8:11)] %<>% mutate_if(is.character,as.numeric)
 
 # Sort the datasets by isolate
 DataT$Iso=factor(DataT$Iso, levels=unique(DataT$Iso))
